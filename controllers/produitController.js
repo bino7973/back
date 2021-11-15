@@ -23,3 +23,25 @@ exports.add_new_produit = async function (req, res, next) {
     });
 
 }
+
+exports.get_all_produit = function (req, res, next) {
+    Produit.find()
+        .exec()
+        .then(produits =>{
+            if (produits.length > 0){
+                res.status(200).json({
+                    produits
+                });
+            }else{
+                res.status(200).json({
+                    "message" : "La liste des produit est vide!"
+                });
+            }
+        }).catch(erreur =>{
+        res.status(400).json({
+            message : "Echec d'obtention de la liste des produit!",
+            informationErreur : erreur
+        });
+    });
+
+};
